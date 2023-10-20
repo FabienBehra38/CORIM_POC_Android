@@ -3,15 +3,16 @@ package com.example.poc_android.core.data.local.daos
 import androidx.room.RawQuery
 import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteQuery
+import com.example.poc_android.core.data.local.entities.ArticleEntity
 import com.example.poc_android.core.data.local.entities.Entity
 import kotlinx.coroutines.flow.Flow
 
 abstract class BaseDao<T : Entity> (private val tableName: String) {
 
-    @RawQuery
+    @RawQuery(observedEntities = [ArticleEntity::class])
     protected abstract fun getById(query: SupportSQLiteQuery) : Flow<T>
 
-    @RawQuery
+    @RawQuery(observedEntities = [ArticleEntity::class])
     protected abstract fun getAll(query: SupportSQLiteQuery) : Flow<List<T>>
 
     fun getById(id: String) : Flow<T> {
